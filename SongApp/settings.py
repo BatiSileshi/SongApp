@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     
     'song.apps.SongConfig',
     'users.apps.UsersConfig',
+    'rest_framework',
     
 ]
 

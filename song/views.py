@@ -18,7 +18,7 @@ def add_song(request):
         if form.is_valid():
             form.save()
             messages.success(request, "You have successfully added song.")
-            return redirect('song')
+            return redirect('songs')
 
         else:
             messages.error(request, "Error occurred, please try again later!")
@@ -33,7 +33,7 @@ def update_song(request, pk):
         form = SongForm(request.POST, request.FILES, instance=song)
         if form.is_valid():
             form.save()
-            return redirect('song')
+            return redirect('songs')
         
     context={'form':form}
     return render(request, "song/forms.html", context)
@@ -44,7 +44,7 @@ def delete_song(request, pk):
     song = Song.objects.get(id=pk)
     if request.method=='POST':
         song.delete()
-        return redirect('song')
+        return redirect('songs')
     context={'object':song}
     return render(request, 'song/delete.html', context)
 

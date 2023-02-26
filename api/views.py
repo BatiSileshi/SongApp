@@ -52,7 +52,7 @@ def update_song(request, pk):
     except Song.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    serializer = SongSerializer(song, data=request.data)
+    serializer = SongSerializer(instance=song, data=request.data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -67,4 +67,4 @@ def delete_song(request, pk):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     song.delete()
-    return Response(status=status.HTTP_204_NO_CONTENT)
+    return Response("You have successfully deleted a song!")

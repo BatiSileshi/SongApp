@@ -5,8 +5,12 @@ from . import views
 urlpatterns = [
     path('', views.getRoutes, name="songs"),
     path('songs/', views.get_songs, name="songs"),
+    
+    path('songs/add/', views.add_song, name="add-song"),
+    
+    path('songs/<str:pk>/update/', views.update_song, name="update-song"),
+    
     path('songs/<str:pk>/', views.get_song, name="song"),
-    path('add-song/', views.add_song, name="add-song"),
-    path('update-song/<str:pk>/', views.update_song, name="update-song"),
-    path('delete/<str:pk>/', views.delete_song, name="delete"),
+        
+    path('songs/<str:pk>/delete/', views.delete_song, name="delete-song"),
 ]

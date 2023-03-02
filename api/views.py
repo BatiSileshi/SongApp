@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from . serializers import SongSerializer
 from .models import Song
 from rest_framework import status
+from django.core.files.storage import FileSystemStorage
 
 @api_view(['GET'])
 def getRoutes(request):
@@ -39,6 +40,11 @@ def get_song(request, pk):
 def add_song(request):
     serializer = SongSerializer(data=request.data)
     if serializer.is_valid():
+        if request.FILES.get('image'):
+            image = request.FILES['image']
+            fs = FileSystemStorage()
+            filename = fs.save('images/' + image.name, image)
+            serializer.validated_data['image'] = filename
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
